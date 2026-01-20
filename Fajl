@@ -59,11 +59,24 @@ namespace ConsoleAppTitkosit
             }
             string LeghosszabbSor = "";
             int LeghosszabbSorHossza = 0;
+            string LeghosszabbSpace = "";
+            int LeghosszabbSpaceHossza = 0;
+            int JelSpacex = 0;
             foreach( string asdf in sor.Split("\n")){
                 if (asdf.Length >LeghosszabbSorHossza) {
                     LeghosszabbSor = asdf;
                     LeghosszabbSorHossza = LeghosszabbSor.Length;
                 }
+                for (int i = 0; i < asdf.Length-1; i++)
+                    {
+                        if (asdf[i] == " ") JelSpacex++;
+                    }
+                if (JelSpacex > LeghosszabbSpaceHossza)
+                    {
+                        LeghosszabbSpaceHossza = JelSpacex;
+                        LeghosszabbSpace = asdf;
+                    }
+                JelSpacex = 0;
             }
             System.Console.WriteLine("leghosszabb sor: " + LeghosszabbSor );
             sr.Close();
