@@ -20,15 +20,15 @@ namespace ConsoleAppTitkosit
                     eltolas = int.Parse(Console.ReadLine());
 
                     Console.Write("Kérem a titkosítandó szöveget! :");
-                   
+
                     do
                     {
-                        
-                    sor = Console.ReadLine();
-                    FajlbaIr("kodolt.txt", Titkositott(sor, eltolas));
+
+                        sor = Console.ReadLine();
+                        FajlbaIr("kodolt.txt", Titkositott(sor, eltolas));
                     }
                     while (sor != "");
-                
+
 
                     break;
                 case ConsoleKey.F2:
@@ -46,49 +46,53 @@ namespace ConsoleAppTitkosit
         {
             try
             {
-                
-            StreamReader sr = new StreamReader(fajlNev);
-            eltolas = int.Parse(sr.ReadLine());  //Ezt is vizsgálni kellene!
-            String sor = sr.ReadLine();
-            int sorokSzama = 2;
 
-            while (!sr.EndOfStream)
-            {
-                sor += "\n" + sr.ReadLine();
-                sorokSzama++;
-            }
-            string LeghosszabbSor = "";
-            int LeghosszabbSorHossza = 0;
-            string LeghosszabbSpace = "";
-            int LeghosszabbSpaceHossza = 0;
-            int JelSpacex = 0;
-            foreach( string asdf in sor.Split("\n")){
-                if (asdf.Length >LeghosszabbSorHossza) {
-                    LeghosszabbSor = asdf;
-                    LeghosszabbSorHossza = LeghosszabbSor.Length;
+                StreamReader sr = new StreamReader(fajlNev);
+                eltolas = int.Parse(sr.ReadLine());  //Ezt is vizsgálni kellene!
+                String sor = sr.ReadLine();
+                int sorokSzama = 2;
+
+                while (!sr.EndOfStream)
+                {
+                    sor += "\n" + sr.ReadLine();
+                    sorokSzama++;
                 }
-                for (int i = 0; i < asdf.Length-1; i++)
+                string LeghosszabbSor = "";
+                int LeghosszabbSorHossza = 0;
+                string LeghosszabbSpace = "";
+                int LeghosszabbSpaceHossza = 0;
+                int JelSpacex = 0;
+                foreach (string asdf in sor.Split("\n"))
+                {
+                    if (asdf.Length > LeghosszabbSorHossza)
                     {
-                        if (asdf[i] == " ") JelSpacex++;
+                        LeghosszabbSor = asdf;
+                        LeghosszabbSorHossza = LeghosszabbSor.Length;
                     }
-                if (JelSpacex > LeghosszabbSpaceHossza)
+                    for (int i = 0; i < asdf.Length - 1; i++)
+                    {
+                        if (asdf[i] == ' ') JelSpacex++;
+                    }
+                    if (JelSpacex > LeghosszabbSpaceHossza)
                     {
                         LeghosszabbSpaceHossza = JelSpacex;
                         LeghosszabbSpace = asdf;
                     }
-                JelSpacex = 0;
-            }
-            System.Console.WriteLine("leghosszabb sor: " + LeghosszabbSor );
-            sr.Close();
-            return sor;
+                    JelSpacex = 0;
+                }
+                System.Console.WriteLine("leghosszabb sor: " + LeghosszabbSor);
+                sr.Close();
+                return sor;
             }
             catch (FileNotFoundException)
             {
-                throw FileNotFoundException("nem taltam a faljlod");
+                //throw Exception("nem taltam a faljlod");
+                return "nem";
             }
             catch (FormatException)
             {
-                throw FormatException("az elso sor nem egy szam");
+                //throw Exception("az elso sor nem egy szam");
+                return "nem2";
             }
         }
 
